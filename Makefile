@@ -22,7 +22,7 @@ ADDITIONAL_CFLAGS = -std=c99 -Ioverlayheaders
 # Support targeting 3.0 in packaged builds, but allow testing packages/builds to be missing support for old iOS versions
 XCODE4_PATH ?= /Applications/Xcode_Legacy.app
 XCODE6_PATH ?= /Volumes/Xcode/Xcode.app
-XCODE9_PATH ?= /Volumes/Xcode_9.4.1/Xcode.app
+XCODE9_PATH ?= /Applications/Xcode_9.4.1/Xcode.app
 
 ifeq ($(wildcard $(XCODE4_PATH)/.*),)
 ADDITIONAL_CFLAGS += -Idefaultheaders
@@ -54,9 +54,10 @@ THEOS_PLATFORM_SDK_ROOT_armv7s = $(XCODE6_PATH)/Contents/Developer
 THEOS_PLATFORM_SDK_ROOT_arm64 = $(XCODE9_PATH)/Contents/Developer
 endif
 
-include framework/makefiles/common.mk
-include framework/makefiles/library.mk
-include framework/makefiles/tool.mk
+DEBUG ?= no
+include $(THEOS)/makefiles/common.mk
+include $(THEOS)/makefiles/library.mk
+include $(THEOS)/makefiles/tool.mk
 
 stage::
 	mkdir -p "$(THEOS_STAGING_DIR)/usr/include"
